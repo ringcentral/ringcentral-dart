@@ -1,6 +1,5 @@
 import 'package:ringcentral/ringcentral.dart';
 
 void main() {
-  var awesome = Awesome();
-  print('awesome: ${awesome.isAwesome}');
+  var rc = RingCentral();
 }
