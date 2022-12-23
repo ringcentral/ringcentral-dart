@@ -13,13 +13,15 @@ class RingCentral {
     }
   }
 
+  get basicAuth {
+    return 'Basic ${base64.encode(utf8.encode('$clientId:$clientSecret'))}';
+  }
+
   Future authorize(
       {required String username,
       String? extension,
       required String password}) async {
-    var uri = Uri.https(server, 'restapi/oauth/token');
-    var basicAuth =
-        'Basic ${base64.encode(utf8.encode('$clientId:$clientSecret'))}';
+    var uri = Uri.https(server, '/restapi/oauth/token');
     var r = await http.post(uri, body: {
       'grant_type': 'password',
       'username': username,
@@ -29,6 +31,18 @@ class RingCentral {
       'authorization': basicAuth
     });
     tokenInfo = json.decode(r.body);
+    return r;
+  }
+
+  Future revoke({String? tokenToRevoke}) async {
+    var uri = Uri.https(server, '/restapi/oauth/revoke');
+    var r = await http.post(uri, body: {
+      'token': tokenToRevoke ??
+          tokenInfo['access_token'] ??
+          tokenInfo['refresh_token'],
+    }, headers: {
+      'authorization': basicAuth
+    });
     return r;
   }
 

@@ -16,4 +16,6 @@ void main() async {
   );
   var r = await rc.get(endpoint: '/restapi/v1.0/account/~/extension/~');
   print(r.body);
+  r = await rc.revoke();
+  print(r.statusCode);
 }
