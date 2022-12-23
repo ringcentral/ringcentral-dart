@@ -5,15 +5,15 @@ var env = Platform.environment;
 
 void main() async {
   var rc = RingCentral(
-    env['RINGCENTRAL_SERVER_URL'] ?? '',
-    env['RINGCENTRAL_CLIENT_ID'] ?? '',
-    env['RINGCENTRAL_CLIENT_SECRET'] ?? '',
+    server: env['RINGCENTRAL_SERVER_URL']!,
+    clientId: env['RINGCENTRAL_CLIENT_ID'],
+    clientSecret: env['RINGCENTRAL_CLIENT_SECRET'],
   );
-  var r = await rc.authorize(
-    env['RINGCENTRAL_USERNAME'],
-    env['RINGCENTRAL_EXTENSION'],
-    env['RINGCENTRAL_PASSWORD'],
+  await rc.authorize(
+    username: env['RINGCENTRAL_USERNAME']!,
+    extension: env['RINGCENTRAL_EXTENSION'],
+    password: env['RINGCENTRAL_PASSWORD']!,
   );
-  print(r.statusCode);
+  var r = await rc.get(endpoint: '/restapi/v1.0/account/~/extension/~');
   print(r.body);
 }
