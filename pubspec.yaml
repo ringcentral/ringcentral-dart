@@ -1,6 +1,6 @@
 name: ringcentral
-description: RingCentral SDK for Dart language. It allows developers to invoke RingCentral Platform API. You can do a couple of things with this API, like sending SMS, downloading call logs, monitoring your co-workers presence...etc.
-version: 0.1.1
+description: RingCentral SDK for Dart language. It allows developers to invoke RingCentral Platform API.
+version: 0.1.2
 homepage: https://github.com/ringcentral/ringcentral-dart
 
 environment:
