@@ -6,7 +6,7 @@ It provides utility classes/functions for you to access RingCentral Restful API.
 ## Features
 
 - Authorization
-- HTTP GET/POST/PUT/PATCH
+- HTTP GET/POST/PUT/PATCH/DELETE
 
 
 ## Getting started
@@ -54,4 +54,10 @@ This library is current in beta. Please evaluate the risk before using it in pro
 
 ```
 dart test
+```
+
+### How to publish
+
+```
+dart pub publish
 ```
