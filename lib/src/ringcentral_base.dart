@@ -13,10 +13,12 @@ class RingCentral {
     }
   }
 
+  /// get the basic auth header value
   get basicAuth {
     return 'Basic ${base64.encode(utf8.encode('$clientId:$clientSecret'))}';
   }
 
+  /// get the token
   Future authorize(
       {required String username,
       String? extension,
@@ -34,6 +36,7 @@ class RingCentral {
     return r;
   }
 
+  /// revoke the token
   Future revoke({String? tokenToRevoke}) async {
     var uri = Uri.https(server, '/restapi/oauth/revoke');
     var r = await http.post(uri, body: {
@@ -46,6 +49,7 @@ class RingCentral {
     return r;
   }
 
+  /// refresh the token
   Future refresh({String? refreshToken}) async {
     var tokenToRefresh = refreshToken ?? tokenInfo['refresh_token'];
     var uri = Uri.https(server, '/restapi/oauth/token');
@@ -59,6 +63,7 @@ class RingCentral {
     return r;
   }
 
+  /// HTTP GET
   Future get({
     required String endpoint,
     Map<String, dynamic>? queryParameters,
@@ -69,6 +74,7 @@ class RingCentral {
     return r;
   }
 
+  /// HTTP POST
   Future post({
     required String endpoint,
     Object? body,
@@ -81,6 +87,7 @@ class RingCentral {
     return r;
   }
 
+  /// HTTP PUT
   Future put({
     required String endpoint,
     Object? body,
@@ -93,6 +100,7 @@ class RingCentral {
     return r;
   }
 
+  /// HTTP PATCH
   Future patch({
     required String endpoint,
     Object? body,
@@ -105,6 +113,7 @@ class RingCentral {
     return r;
   }
 
+  /// HTTP DELETE
   Future delete({
     required String endpoint,
     Object? body,
