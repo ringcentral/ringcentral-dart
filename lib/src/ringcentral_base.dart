@@ -46,12 +46,73 @@ class RingCentral {
     return r;
   }
 
+  Future refresh({String? refreshToken}) async {
+    var tokenToRefresh = refreshToken ?? tokenInfo['refresh_token'];
+    var uri = Uri.https(server, '/restapi/oauth/token');
+    var r = await http.post(uri, body: {
+      'grant_type': 'refresh_token',
+      'refresh_token': tokenToRefresh,
+    }, headers: {
+      'authorization': basicAuth
+    });
+    tokenInfo = json.decode(r.body);
+    return r;
+  }
+
   Future get({
     required String endpoint,
     Map<String, dynamic>? queryParameters,
   }) async {
     var uri = Uri.https(server, endpoint, queryParameters);
     var r = http.get(uri,
+        headers: {'authorization': 'Bearer ${tokenInfo['access_token']}'});
+    return r;
+  }
+
+  Future post({
+    required String endpoint,
+    Object? body,
+    Map<String, dynamic>? queryParameters,
+  }) {
+    var uri = Uri.https(server, endpoint, queryParameters);
+    var r = http.post(uri,
+        body: body,
+        headers: {'authorization': 'Bearer ${tokenInfo['access_token']}'});
+    return r;
+  }
+
+  Future put({
+    required String endpoint,
+    Object? body,
+    Map<String, dynamic>? queryParameters,
+  }) {
+    var uri = Uri.https(server, endpoint, queryParameters);
+    var r = http.put(uri,
+        body: body,
+        headers: {'authorization': 'Bearer ${tokenInfo['access_token']}'});
+    return r;
+  }
+
+  Future patch({
+    required String endpoint,
+    Object? body,
+    Map<String, dynamic>? queryParameters,
+  }) {
+    var uri = Uri.https(server, endpoint, queryParameters);
+    var r = http.patch(uri,
+        body: body,
+        headers: {'authorization': 'Bearer ${tokenInfo['access_token']}'});
+    return r;
+  }
+
+  Future delete({
+    required String endpoint,
+    Object? body,
+    Map<String, dynamic>? queryParameters,
+  }) {
+    var uri = Uri.https(server, endpoint, queryParameters);
+    var r = http.delete(uri,
+        body: body,
         headers: {'authorization': 'Bearer ${tokenInfo['access_token']}'});
     return r;
   }

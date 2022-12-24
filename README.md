@@ -28,15 +28,18 @@ import 'package:ringcentral/ringcentral.dart';
 ## Usage
 
 ```dart
-// init
-const rc = RingCentral('<server>', '[clientId]', '[clientSecret]');
-
-// authorize
-await rc.authorize('<username>',' [extension]', '<password>');
-
-// make API call
-var r = await rc.get('/restapi/v1.0/account/~/extension/~');
-print(r);
+var rc = RingCentral(
+    server: env['RINGCENTRAL_SERVER_URL']!,
+    clientId: env['RINGCENTRAL_CLIENT_ID'],
+    clientSecret: env['RINGCENTRAL_CLIENT_SECRET'],
+  );
+await rc.authorize(
+  username: env['RINGCENTRAL_USERNAME']!,
+  extension: env['RINGCENTRAL_EXTENSION'],
+  password: env['RINGCENTRAL_PASSWORD']!,
+);
+var r = await rc.get(endpoint: '/restapi/v1.0/account/~/extension/~');
+print(r.body);
 ```
 
 
